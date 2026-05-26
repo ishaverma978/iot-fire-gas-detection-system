@@ -1,0 +1,276 @@
+{
+    "widgets": [
+        {
+            "type": "text",
+            "x": 0,
+            "y": 0,
+            "width": 24,
+            "height": 2,
+            "properties": {
+                "markdown": "# 🔥 FireGasMonitor — Real-Time IoT Safety Dashboard\n**Project PUG020** &nbsp;|&nbsp; NodeMCU/ESP8266 + MQ2 Gas Sensor + Flame Sensor &nbsp;|&nbsp; ✅ 3-Zone Detection (Safe / Warning / Danger) &nbsp;|&nbsp; ✅ IFTTT Alerts (SMS + Email + App) &nbsp;|&nbsp; ✅ Auto Safety Response (Buzzer + Fan + LED)"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 0,
+            "y": 2,
+            "width": 4,
+            "height": 4,
+            "properties": {
+                "title": "🌡 Gas Level (Live)",
+                "view": "singleValue",
+                "stat": "Average",
+                "period": 10,
+                "metrics": [
+                    [ "FireGasMonitor", "GasAnalogLevel" ]
+                ],
+                "annotations": {
+                    "horizontal": [
+                        {
+                            "label": "Danger",
+                            "value": 650,
+                            "color": "#E24B4A",
+                            "fill": "above"
+                        }
+                    ]
+                },
+                "sparkline": true,
+                "liveData": true,
+                "region": "ap-south-1"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 4,
+            "y": 2,
+            "width": 4,
+            "height": 4,
+            "properties": {
+                "title": "🔥 Flame Detected",
+                "view": "singleValue",
+                "stat": "Maximum",
+                "period": 10,
+                "metrics": [
+                    [ "FireGasMonitor", "FlameStatus" ]
+                ],
+                "annotations": {
+                    "horizontal": [
+                        {
+                            "label": "Fire!",
+                            "value": 0.5,
+                            "color": "#E24B4A",
+                            "fill": "above"
+                        }
+                    ]
+                },
+                "sparkline": true,
+                "liveData": true,
+                "region": "ap-south-1"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 8,
+            "y": 2,
+            "width": 4,
+            "height": 4,
+            "properties": {
+                "title": "💨 Gas Leaked",
+                "view": "singleValue",
+                "stat": "Maximum",
+                "period": 10,
+                "metrics": [
+                    [ "FireGasMonitor", "GasDetected" ]
+                ],
+                "annotations": {
+                    "horizontal": [
+                        {
+                            "label": "Gas Leak!",
+                            "value": 0.5,
+                            "color": "#E24B4A",
+                            "fill": "above"
+                        }
+                    ]
+                },
+                "sparkline": true,
+                "liveData": true,
+                "region": "ap-south-1"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 12,
+            "y": 2,
+            "width": 4,
+            "height": 4,
+            "properties": {
+                "title": "⚠️ Warning Zone",
+                "view": "singleValue",
+                "stat": "Maximum",
+                "period": 10,
+                "metrics": [
+                    [ "FireGasMonitor", "WarningActive" ]
+                ],
+                "annotations": {
+                    "horizontal": [
+                        {
+                            "label": "Warning!",
+                            "value": 0.5,
+                            "color": "#BA7517",
+                            "fill": "above"
+                        }
+                    ]
+                },
+                "sparkline": true,
+                "liveData": true,
+                "region": "ap-south-1"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 16,
+            "y": 2,
+            "width": 4,
+            "height": 4,
+            "properties": {
+                "title": "🚨 Alert Active",
+                "view": "singleValue",
+                "stat": "Maximum",
+                "period": 10,
+                "metrics": [
+                    [ "FireGasMonitor", "AlertActive" ]
+                ],
+                "annotations": {
+                    "horizontal": [
+                        {
+                            "label": "ALERT!",
+                            "value": 0.5,
+                            "color": "#E24B4A",
+                            "fill": "above"
+                        }
+                    ]
+                },
+                "sparkline": true,
+                "liveData": true,
+                "region": "ap-south-1"
+            }
+        },
+        {
+            "type": "text",
+            "x": 20,
+            "y": 2,
+            "width": 4,
+            "height": 4,
+            "properties": {
+                "markdown": "### Detection Zones\n🟢 **SAFE** — Gas < 500\n\n🟡 **WARNING** — Gas 500–649\n\n🔴 **DANGER** — Gas ≥ 650\n\n🔴 **FIRE** — Flame = 1"
+            }
+        },
+        {
+            "type": "alarm",
+            "x": 0,
+            "y": 6,
+            "width": 24,
+            "height": 2,
+            "properties": {
+                "title": "🔔 Live Alarm Status",
+                "alarms": [
+                    "arn:aws:cloudwatch:ap-south-1:560151615223:alarm:GasLevel-HighAlarm",
+                    "arn:aws:cloudwatch:ap-south-1:560151615223:alarm:FlameDetected-Alarm"
+                ]
+            }
+        },
+        {
+            "type": "metric",
+            "x": 0,
+            "y": 8,
+            "width": 14,
+            "height": 6,
+            "properties": {
+                "title": "📈 Gas Analog Level Over Time",
+                "view": "timeSeries",
+                "stat": "Average",
+                "period": 10,
+                "metrics": [
+                    [ "FireGasMonitor", "GasAnalogLevel", { "label": "Gas Level (ADC)", "color": "#3266ad" } ]
+                ],
+                "annotations": {
+                    "horizontal": [
+                        {
+                            "label": "⚠ Danger (650)",
+                            "value": 650,
+                            "color": "#E24B4A",
+                            "fill": "above"
+                        },
+                        {
+                            "label": "Warning (500)",
+                            "value": 500,
+                            "color": "#BA7517"
+                        }
+                    ]
+                },
+                "yAxis": {
+                    "left": {
+                        "min": 0,
+                        "max": 800,
+                        "label": "Raw ADC Value"
+                    }
+                },
+                "legend": {
+                    "position": "bottom"
+                },
+                "liveData": true,
+                "region": "ap-south-1"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 14,
+            "y": 8,
+            "width": 10,
+            "height": 6,
+            "properties": {
+                "title": "📋 All Sensors — Combined Status",
+                "view": "timeSeries",
+                "stat": "Maximum",
+                "period": 10,
+                "metrics": [
+                    [ "FireGasMonitor", "FlameStatus", { "label": "🔥 Flame (0=Safe, 1=Fire)", "color": "#E24B4A" } ],
+                    [ "FireGasMonitor", "GasDetected", { "label": "💨 Gas Detected (0=Safe, 1=Leak)", "color": "#BA7517" } ],
+                    [ "FireGasMonitor", "WarningActive", { "label": "⚠️ Warning Active (0/1)", "color": "#F0BB00" } ],
+                    [ "FireGasMonitor", "AlertActive", { "label": "🚨 Alert Active (0=OK, 1=Alert)", "color": "#993C1D" } ]
+                ],
+                "annotations": {
+                    "horizontal": [
+                        {
+                            "label": "Trigger Level",
+                            "value": 0.5,
+                            "color": "#E24B4A"
+                        }
+                    ]
+                },
+                "yAxis": {
+                    "left": {
+                        "min": 0,
+                        "max": 1.5,
+                        "label": "Status (0=Safe, 1=Alert)"
+                    }
+                },
+                "legend": {
+                    "position": "bottom"
+                },
+                "liveData": true,
+                "region": "ap-south-1"
+            }
+        },
+        {
+            "type": "text",
+            "x": 0,
+            "y": 14,
+            "width": 24,
+            "height": 3,
+            "properties": {
+                "markdown": "### 🛡️ Automatic Safety Responses\n**Gas Detected →** Fan (Relay) ON for ventilation &nbsp;|&nbsp; Buzzer slow beep (1/sec) &nbsp;|&nbsp; Red LED solid ON &nbsp;|&nbsp; IFTTT SMS + Email + App notification sent\n\n**Flame Detected →** Fan OFF (avoids feeding oxygen to fire) &nbsp;|&nbsp; Buzzer fast beep &nbsp;|&nbsp; Red LED rapid blink &nbsp;|&nbsp; IFTTT SMS + Email + App notification sent &nbsp;|&nbsp; **All Clear** notification when system returns safe"
+            }
+        }
+    ]
+}
